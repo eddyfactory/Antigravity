@@ -311,10 +311,86 @@
     .entity-link:hover text {
       opacity: 0.9
     }
+
+    /* Human Modal Styles */
+    .human-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(2, 2, 8, 0.95);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .human-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .human-modal-content {
+      text-align: center;
+      animation: fadeUp 1s ease-out;
+    }
+
+    .human-modal-q {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: #fffbe6;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      font-style: italic;
+    }
+
+    .human-modal-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .human-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #aa9977;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+    }
+
+    .human-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: #fffbe6;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- ============================================================
+     HUMAN MODAL
+     ============================================================ -->
+  <div id="humanModal" class="human-modal">
+    <div class="human-modal-content">
+      <p class="human-modal-q">Are you human?</p>
+      <div class="human-modal-actions">
+        <button class="human-btn">Yes</button>
+        <button class="human-btn">No</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
      HERO: Animated vortex with title overlay
@@ -633,13 +709,7 @@
       }).catch(function () { });
     }
 
-    /* Autoplay on first user interaction (required by browsers) */
-    document.addEventListener("click", startAudio, { once: false });
-    window.addEventListener("scroll", startAudio, { once: false });
-    document.addEventListener("keydown", startAudio, { once: false });
-
-    /* Also try immediately — works if user has interacted with domain before */
-    startAudio();
+    /* Audio strictly waits for the 'Are you human?' modal interaction now. */
 
     document.getElementById("audioBtn").addEventListener("click", function (e) {
       e.stopPropagation();
@@ -656,6 +726,15 @@
         silenced = true;
         this.textContent = "unsilence";
       }
+    });
+
+    /* Human Modal Logic */
+    document.querySelectorAll('.human-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // prevent document click listener from double firing
+        startAudio();
+        document.getElementById('humanModal').classList.add('hidden');
+      });
     });
   </script>
 
