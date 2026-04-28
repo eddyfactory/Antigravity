@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';">
   <title>the eddy factory — code. conscience. capital.</title>
-  <meta name="description"
-    content="the eddy factory is a socially-minded, human-centric, ai-powered, glass-box independent capital firm.">
+  <meta name="description" content="a socially-minded, human-centric, ai-powered, glass-box independent capital firm.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -107,14 +107,13 @@
       letter-spacing: 0.15em;
       text-transform: lowercase;
       color: #fffbe6;
-      margin-left: -25px;
       margin-bottom: 0.5rem;
       animation: fadeUp 1.5s ease-out 0.3s both
     }
 
     .hero-mission {
       max-width: 640px;
-      margin: 200 auto;
+      margin: 0 auto;
       font-size: clamp(1rem, 1.8vw, 1.2rem);
       font-weight: 300;
       line-height: 1.8;
@@ -437,8 +436,8 @@
     </svg>
     <div class="hero-overlay">
       <p class="hero-tagline">code. conscience. capital.</p>
-      <h1 class="hero-title">the eddy factory</h1>
-      <p class="hero-mission">a socially-minded, human-centric, ai-powered, glass-box independent
+      <h1 class="hero-title">the eddy factory&nbsp;</h1>
+      <p class="hero-mission">the eddy factory is a socially-minded, human-centric, ai-powered, glass-box independent
         capital firm.</p>
     </div>
     <div class="scroll-hint">scroll</div>
@@ -536,9 +535,9 @@
   </footer>
 
   <!-- ============================================================
-     AUDIO: Ambient sound toggle
+     AUDIO: Autoplay ambient sound, user can silence/unsilence
      ============================================================ -->
-  <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">&#9654; sound</button>
+  <button class="audio-btn" id="audioBtn">silence</button>
 
   <script>
     /*
@@ -546,32 +545,50 @@
      * AMBIENT AUDIO CONFIGURATION
      * Change the URL below to swap the background audio file.
      * Use any publicly hosted .mp3, .ogg, or .wav URL.
-     * The audio loads lazily and does not block page rendering.
+     * Audio autoplays on first user interaction (browser policy
+     * requires at least one click/scroll/keypress before playing).
      * ═══════════════════════════════════════════════════════════════
      */
-    var AMBIENT_AUDIO_URL = "https://cdnjs.cloudflare.com/ajax/libs/ion-sound/3.0.7/sounds/water_droplet.mp3";
+    var AMBIENT_AUDIO_URL = "./chaplin_funk.mp3";
     /* ═══════════════════════════════════════════════════════════════ */
 
-    var audio = null;
-    var playing = false;
+    var audio = new Audio(AMBIENT_AUDIO_URL);
+    audio.loop = true;
+    audio.volume = 0.3;
+    var silenced = false;
+    var started = false;
 
-    function toggleAudio() {
-      if (!audio) {
-        audio = new Audio(AMBIENT_AUDIO_URL);
-        audio.loop = true;
-        audio.volume = 0.3;
-      }
-      if (playing) {
-        audio.pause();
-        playing = false;
-        document.getElementById("audioBtn").innerHTML = "&#9654; sound";
-      } else {
-        audio.play().then(function () {
-          playing = true;
-          document.getElementById("audioBtn").innerHTML = "&#9724; sound";
-        }).catch(function () { });
-      }
+    function startAudio() {
+      if (started) return;
+      audio.play().then(function () {
+        started = true;
+      }).catch(function () { });
     }
+
+    /* Autoplay on first user interaction (required by browsers) */
+    document.addEventListener("click", startAudio, { once: false });
+    document.addEventListener("scroll", startAudio, { once: false });
+    document.addEventListener("keydown", startAudio, { once: false });
+
+    /* Also try immediately — works if user has interacted with domain before */
+    startAudio();
+
+    document.getElementById("audioBtn").addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (!started) {
+        startAudio();
+        return;
+      }
+      if (silenced) {
+        audio.play();
+        silenced = false;
+        this.textContent = "silence";
+      } else {
+        audio.pause();
+        silenced = true;
+        this.textContent = "unsilence";
+      }
+    });
   </script>
 
 </body>
