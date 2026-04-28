@@ -763,6 +763,41 @@
   <script>
     /*
      * ═══════════════════════════════════════════════════════════════
+     * EDDY FACTORY // FRONTEND LOGGER
+     * ═══════════════════════════════════════════════════════════════
+     */
+    const Logger = {
+      base: "font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 4px; border-radius: 2px;",
+      text: "color: #a89880; font-family: 'JetBrains Mono', monospace; font-size: 11px;",
+      bold: "color: #fffbe6; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold;",
+      
+      boot: function() {
+        console.log("%c==========================================\n" +
+                    " THE EDDY FACTORY // LOVE OS INITIALIZED \n" +
+                    "==========================================", 
+                    "color: #fffbe6; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: bold; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);");
+      },
+      system: function(msg) {
+        console.log(`%c[SYSTEM]%c ${msg}`, 
+          this.base + "background: #2255ff; color: #fff;", this.text);
+      },
+      audio: function(state) {
+        const color = state === 'PLAYING' ? '#00cc66' : '#ff3355';
+        console.log(`%c[AUDIO]%c Ambient subsystem state: %c${state}`, 
+          this.base + "background: " + color + "; color: #020208; font-weight: bold;", this.text,
+          "color: " + color + "; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold;");
+      },
+      interaction: function(entity, action) {
+        console.log(`%c[INTERACT]%c %c${entity}%c > ${action}`, 
+          this.base + "background: #bb66ee; color: #fff;", this.text, this.bold, this.text);
+      }
+    };
+    
+    // Fire boot sequence
+    Logger.boot();
+
+    /*
+     * ═══════════════════════════════════════════════════════════════
      * AMBIENT AUDIO CONFIGURATION
      * Change the URL below to swap the background audio file.
      * Use any publicly hosted .mp3, .ogg, or .wav URL.
@@ -783,7 +818,10 @@
       if (started) return;
       audio.play().then(function () {
         started = true;
-      }).catch(function () { });
+        Logger.audio('PLAYING');
+      }).catch(function (e) {
+        Logger.system('Audio playback rejected: ' + e.message);
+      });
     }
 
     /* Audio strictly waits for the 'Are you human?' modal interaction now. */
@@ -798,10 +836,12 @@
         audio.play();
         silenced = false;
         this.textContent = "silence";
+        Logger.audio('PLAYING');
       } else {
         audio.pause();
         silenced = true;
         this.textContent = "unsilence";
+        Logger.audio('SILENCED');
       }
     });
 
@@ -809,6 +849,7 @@
     document.querySelectorAll('#humanModal .human-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation(); // prevent document click listener from double firing
+        Logger.system('Human verification confirmed. Bypassing browser sandbox.');
         startAudio();
         document.getElementById('humanModal').classList.add('hidden');
       });
@@ -817,6 +858,7 @@
     /* Credits Modal Logic */
     document.getElementById('creditsBtn').addEventListener('click', function (e) {
       e.stopPropagation();
+      Logger.system('Credits modal accessed.');
       document.getElementById('creditsModal').classList.remove('hidden');
     });
 
@@ -827,9 +869,12 @@
 
     /* Entity Link Click/Tap Toggle Logic */
     document.querySelectorAll('.entity-link').forEach(function (link) {
+      const entityName = link.querySelector('text').textContent;
+
       link.addEventListener('click', function (e) {
         e.preventDefault(); // Stop the page from jumping to top
         if (this.classList.contains('active')) {
+          Logger.interaction(entityName, 'Orbit locked OFF');
           this.classList.remove('active');
           this.classList.add('cooldown');
           var self = this;
@@ -837,6 +882,7 @@
             self.classList.remove('cooldown');
           }, 1000);
         } else {
+          Logger.interaction(entityName, 'Orbit locked ON');
           this.classList.add('active');
           this.classList.remove('cooldown');
           this.classList.remove('fade-out');
@@ -854,6 +900,9 @@
       });
       
       link.addEventListener('mouseenter', function() {
+        if (!this.classList.contains('active')) {
+          Logger.interaction(entityName, 'Hover engaged');
+        }
         this.classList.remove('fade-out');
       });
     });
