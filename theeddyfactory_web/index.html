@@ -886,18 +886,23 @@
 
     // Mouse Rest Screen Logger
     let mouseRestTimer;
-    let lastLoggedScreen = 0;
+    let lastLoggedScreen = -1; // Initialize to -1 so Screen 0 logs on first rest
     
     document.addEventListener('mousemove', function(e) {
       clearTimeout(mouseRestTimer);
       mouseRestTimer = setTimeout(function() {
+        const humanModal = document.getElementById('humanModal');
         const frameworkSec = document.getElementById('screen-framework');
         const organismSec = document.getElementById('screen-organism');
         
         let screenNum = 1;
         let screenName = "TOP";
         
-        if (frameworkSec && organismSec) {
+        if (humanModal && !humanModal.classList.contains('hidden')) {
+          // If the verification modal is open, intercept the screen status
+          screenNum = 0;
+          screenName = "VERIFICATION";
+        } else if (frameworkSec && organismSec) {
           // Determine region based on total page Y coordinates
           if (e.pageY >= organismSec.offsetTop) {
             screenNum = 3;
