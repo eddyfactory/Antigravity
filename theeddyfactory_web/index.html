@@ -964,6 +964,29 @@
     </div>
   </div>
 
+  <div id="exitModal" class="human-modal hidden">
+    <div class="human-modal-content" style="max-width: 900px; padding: 40px 20px;">
+      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+        Thank you for visiting!
+      </p>
+      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+        May we email YOU a story about YOU based on what we learned about YOU while YOU's mind was in our possession?
+      </p>
+      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+        If so, enter YOU's best email address below.
+      </p>
+      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 3rem; text-transform: none;">
+        Love YOU.
+      </p>
+      <div style="padding: 0 20px 20px 20px;">
+        <input type="email" id="exitEmailInput" class="action-input" style="height: 50px; font-size: 1.2rem; text-align: center; margin-bottom: 20px;" placeholder="Email address...">
+        <div class="human-modal-actions" style="margin-top: 0; justify-content: center;">
+          <button id="exitGoodbyeBtn" class="human-btn">GOODBYE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     /*
      * ═══════════════════════════════════════════════════════════════
@@ -1379,10 +1402,37 @@
       }
     }
 
+    const exitModal = document.getElementById('exitModal');
+    const exitEmailInput = document.getElementById('exitEmailInput');
+    const exitGoodbyeBtn = document.getElementById('exitGoodbyeBtn');
+    let exitTargetUrl = '';
+
     document.querySelectorAll('.tier-link').forEach(function(link) {
       link.addEventListener('click', function(e) {
-        Logger.interaction('ActionPanel', `Clicked ${this.textContent.trim()}`);
+        e.preventDefault();
+        Logger.interaction('ActionPanel', `Clicked ${this.textContent.trim()} - Initiating Exit Sequence`);
+        exitTargetUrl = this.href;
+        exitModal.classList.remove('hidden');
       });
+    });
+
+    exitGoodbyeBtn.addEventListener('click', function() {
+      const email = exitEmailInput.value.trim();
+      if (email.length > 0) {
+        // Basic validation: contains @, min 1 char before and after, contains dot
+        if (email.includes('@') && email.includes('.') && email.length >= 5) {
+          Logger.interaction('ExitModal', `Collected email: ${email}`);
+          localStorage.setItem('eddyVisitorEmail', email);
+        } else {
+          Logger.interaction('ExitModal', 'Invalid email entered, proceeding anyway');
+        }
+      } else {
+        Logger.interaction('ExitModal', 'No email entered, proceeding');
+      }
+      
+      Logger.interaction('ExitModal', 'Departing to ' + exitTargetUrl + ' (New Tab)');
+      window.open(exitTargetUrl, '_blank');
+      exitModal.classList.add('hidden');
     });
   </script>
 
