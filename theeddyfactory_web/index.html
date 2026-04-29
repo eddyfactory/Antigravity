@@ -1227,7 +1227,7 @@
       trackIndex = Math.floor(Math.random() * 10);
     }
 
-    const currentJukeboxTrack = JUKEBOX_TRACKS[trackIndex];
+    let currentJukeboxTrack = JUKEBOX_TRACKS[trackIndex];
     console.groupCollapsed(`%c[JUKEBOX]%c Now Playing: ${currentJukeboxTrack.song} by ${currentJukeboxTrack.band} (Day ${currentDay})`, "background: #ff00ff; color: #fff; padding: 2px 4px; border-radius: 2px; font-weight: bold;", "");
     console.log(`%cCalendar Day:%c ${currentDay}`, "color: #a89880; font-weight: bold;", "");
     console.log(`%cArray Index:%c ${trackIndex}`, "color: #a89880; font-weight: bold;", "");
@@ -1413,6 +1413,31 @@
     actionSaveBtn.addEventListener('click', function(e) {
       e.preventDefault();
       const messageText = actionMessageInput.value.trim();
+      
+      // Easter Egg Check
+      const easterEggMatch = messageText.match(/^Day\s+(\d+)\s+Song\s+(\d+)$/i);
+      if (easterEggMatch) {
+        const d = parseInt(easterEggMatch[1], 10);
+        const s = parseInt(easterEggMatch[2], 10);
+        if (d >= 1 && d <= 10 && s >= 0 && s <= 9 && d === s + 1) {
+          Logger.interaction('EasterEgg', `Jukebox Override Triggered: ${messageText}`);
+          
+          const track = JUKEBOX_TRACKS[s];
+          console.groupCollapsed(`%c[JUKEBOX]%c EASTER EGG UNLOCKED: ${track.song}`, "background: #ffaa00; color: #000; padding: 2px 4px; border-radius: 2px; font-weight: bold;", "");
+          console.table(track);
+          console.groupEnd();
+          
+          if (audio) {
+            const wasPlaying = !audio.paused && started;
+            audio.src = track.file;
+            currentJukeboxTrack = track; // Update global state for Credits modal
+            if (wasPlaying && !silenced) {
+              audio.play();
+            }
+          }
+        }
+      }
+
       const payload = {
         context: currentActionContext,
         message: messageText,
