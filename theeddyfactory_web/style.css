@@ -591,4 +591,14 @@
       border-color: rgba(255, 255, 255, 0.5);
       color: #fffbe6;
     }
-  
+
+    .human-modal-content a {
+      color: #fffbe6;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 251, 230, 0.3);
+      transition: border-bottom-color 0.3s ease;
+    }
+
+    .human-modal-content a:hover {
+      border-bottom-color: rgba(255, 251, 230, 0.8);
+    }
