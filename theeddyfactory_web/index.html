@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy"
+    content="script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com;">
   <title>the eddy factory — code. conscience. capital.</title>
   <meta name="description" content="a socially-minded, human-centric, ai-powered, glass-box independent capital firm.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23a89880' stroke-width='8' opacity='0.5'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23fffbe6'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23a89880' stroke-width='8' opacity='0.5'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23fffbe6'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -228,18 +230,24 @@
         <a href="#" class="hero-btn action-trigger">SHOW LOVE</a>
         <a href="#" class="hero-btn action-trigger">INVEST USD</a>
       </div>
-      
+
       <!-- ACTION PANEL -->
       <div id="actionPanel" class="action-panel hidden">
         <button id="actionCloseBtn" class="action-close-btn">&times;</button>
         <div class="action-panel-section">
           <label id="actionMessageLabel" class="action-label">MESSAGE OF LOVE</label>
-          <textarea id="actionMessageInput" class="action-input" placeholder="Enter your message (max 300 chars)..." maxlength="300"></textarea>
+          <textarea id="actionMessageInput" class="action-input" placeholder="Enter your message (max 300 chars)..."
+            maxlength="300"></textarea>
         </div>
         <div class="action-panel-section" style="text-align: center;">
-          <button id="actionSaveBtn" class="hero-btn" style="padding: 0.5rem 1.5rem; font-size: 0.7rem; border-color: rgba(255,255,255,0.2); vertical-align: middle;">SEND</button>
+          <button id="actionSaveBtn" class="hero-btn"
+            style="padding: 0.5rem 1.5rem; font-size: 0.7rem; border-color: rgba(255,255,255,0.2); vertical-align: middle;">SEND</button>
           <button id="actionTrashBtn" class="action-trash-btn" disabled title="Clear Message">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
           </button>
         </div>
         <div class="action-panel-section">
@@ -368,9 +376,13 @@
         <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(168,152,128,0.2);">
           <p style="font-size: 0.8rem; margin-bottom: 0.5rem; opacity: 0.7;">NOW PLAYING</p>
           <p>Song: <span id="creditSong">Unknown</span></p>
-          <p>Band: <a href="#" id="creditBand" target="_blank" style="color: #fffbe6; text-decoration: none; border-bottom: 1px solid rgba(255,251,230,0.3);">Unknown</a></p>
+          <p>Band: <a href="#" id="creditBand" target="_blank"
+              style="color: #fffbe6; text-decoration: none; border-bottom: 1px solid rgba(255,251,230,0.3);">Unknown</a>
+          </p>
           <p>Album: <span id="creditAlbum">Unknown</span></p>
-          <p>Publisher: <a href="#" id="creditPublisher" target="_blank" style="color: #fffbe6; text-decoration: none; border-bottom: 1px solid rgba(255,251,230,0.3);">Unknown</a></p>
+          <p>Publisher: <a href="#" id="creditPublisher" target="_blank"
+              style="color: #fffbe6; text-decoration: none; border-bottom: 1px solid rgba(255,251,230,0.3);">Unknown</a>
+          </p>
         </div>
       </div>
       <div class="human-modal-actions">
@@ -381,20 +393,26 @@
 
   <div id="exitModal" class="human-modal hidden">
     <div class="human-modal-content" style="max-width: 900px; padding: 40px 20px;">
-      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+      <p class="human-modal-q"
+        style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
         Thank you for visiting!
       </p>
-      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+      <p class="human-modal-q"
+        style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
         May we email YOU a story about YOU based on what we learned about YOU while YOU's mind was in our possession?
       </p>
-      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
+      <p class="human-modal-q"
+        style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 1.5rem; text-transform: none;">
         If so, enter YOU's best email address below.
       </p>
-      <p class="human-modal-q" style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 3rem; text-transform: none;">
+      <p class="human-modal-q"
+        style="text-align: justify; text-align-last: center; line-height: 1.4; margin-bottom: 3rem; text-transform: none;">
         Love YOU.
       </p>
       <div style="padding: 0 20px 20px 20px;">
-        <input type="email" id="exitEmailInput" class="action-input" style="height: 50px; font-size: 1.2rem; text-align: center; margin-bottom: 20px;" placeholder="Email address...">
+        <input type="email" id="exitEmailInput" class="action-input"
+          style="height: 50px; font-size: 1.2rem; text-align: center; margin-bottom: 20px;"
+          placeholder="Email address...">
         <div class="human-modal-actions" style="margin-top: 0; justify-content: center;">
           <button id="exitGoodbyeBtn" class="human-btn">GOODBYE</button>
         </div>
