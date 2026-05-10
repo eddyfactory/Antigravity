@@ -360,12 +360,12 @@
 
     /* Action Panel Logic */
     const actionPanel = document.getElementById('actionPanel');
-    const actionMessageLabel = document.getElementById('actionMessageLabel');
+    const actionLoveLabel = document.getElementById('actionLoveLabel');
     const actionMoneyLabel = document.getElementById('actionMoneyLabel');
     const actionCloseBtn = document.getElementById('actionCloseBtn');
     const actionSaveBtn = document.getElementById('actionSaveBtn');
     const actionTrashBtn = document.getElementById('actionTrashBtn');
-    const actionMessageInput = document.getElementById('actionMessageInput');
+    const actionLoveInput = document.getElementById('actionLoveInput');
     
     let currentActionContext = '';
 
@@ -376,10 +376,10 @@
         currentActionContext = actionType;
         
         if (actionType === 'SHOW LOVE') {
-          actionMessageLabel.textContent = 'MESSAGE OF LOVE';
+          actionLoveLabel.textContent = 'MESSAGE OF LOVE';
           actionMoneyLabel.textContent = 'LOVE AS AWARENESS';
         } else if (actionType === 'INVEST USD') {
-          actionMessageLabel.textContent = 'INVESTMENT MESSAGE';
+          actionLoveLabel.textContent = 'INVESTMENT MESSAGE';
           actionMoneyLabel.textContent = 'INVESTMENT AS MONEY';
         }
         
@@ -396,9 +396,9 @@
       e.preventDefault();
       localStorage.removeItem('eddyActionMessage');
       localStorage.removeItem('eddyActionContext');
-      actionMessageInput.value = '';
-      actionMessageInput.disabled = false;
-      actionMessageInput.classList.remove('frozen');
+      actionLoveInput.value = '';
+      actionLoveInput.disabled = false;
+      actionLoveInput.classList.remove('frozen');
       actionSaveBtn.textContent = 'SEND';
       actionSaveBtn.disabled = false;
       actionSaveBtn.style.opacity = '1';
@@ -414,7 +414,7 @@
 
     actionSaveBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      const messageText = actionMessageInput.value.trim();
+      const messageText = actionLoveInput.value.trim();
       
       // Easter Egg Check
       const easterEggMatch = messageText.match(/^Hour\s+(\d+)$/i);
@@ -455,8 +455,8 @@
         localStorage.setItem('eddyActionContext', currentActionContext);
         
         // Gray-over the message
-        actionMessageInput.disabled = true;
-        actionMessageInput.classList.add('frozen');
+        actionLoveInput.disabled = true;
+        actionLoveInput.classList.add('frozen');
         actionSaveBtn.textContent = 'SENT';
         actionSaveBtn.disabled = true;
         actionSaveBtn.style.opacity = '0.5';
@@ -470,9 +470,9 @@
     const savedMsg = localStorage.getItem('eddyActionMessage');
     const savedCtx = localStorage.getItem('eddyActionContext');
     if (savedMsg) {
-      actionMessageInput.value = savedMsg;
-      actionMessageInput.disabled = true;
-      actionMessageInput.classList.add('frozen');
+      actionLoveInput.value = savedMsg;
+      actionLoveInput.disabled = true;
+      actionLoveInput.classList.add('frozen');
       actionSaveBtn.textContent = 'SENT';
       actionSaveBtn.disabled = true;
       actionSaveBtn.style.opacity = '0.5';
@@ -481,10 +481,10 @@
       if (savedCtx) {
         currentActionContext = savedCtx;
         if (savedCtx === 'SHOW LOVE') {
-          actionMessageLabel.textContent = 'MESSAGE OF LOVE';
+          actionLoveLabel.textContent = 'MESSAGE OF LOVE';
           actionMoneyLabel.textContent = 'LOVE AS AWARENESS';
         } else if (savedCtx === 'INVEST USD') {
-          actionMessageLabel.textContent = 'INVESTMENT MESSAGE';
+          actionLoveLabel.textContent = 'INVESTMENT MESSAGE';
           actionMoneyLabel.textContent = 'INVESTMENT AS MONEY';
         }
       }
