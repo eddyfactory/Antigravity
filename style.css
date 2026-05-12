@@ -440,7 +440,8 @@
       font-size: 0.9rem;
       font-weight: 300;
       color: #776655;
-      line-height: 1.6
+      line-height: 1.6;
+      text-align: center;
     }
 
     .entity-dot {
