@@ -424,6 +424,17 @@
       margin-bottom: 0.5rem
     }
 
+    .entity-name a {
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .entity-name a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
     .entity-desc {
       font-size: 0.9rem;
       font-weight: 300;
