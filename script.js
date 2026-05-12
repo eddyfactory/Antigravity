@@ -1,3 +1,15 @@
+const sites = [
+  { id: 0, code: "EDDY", color: "white",  hex: "#ffffff", company: "The Eddy Factory",        repo: "theeddyfactory",        url: "theeddyfactory.com" },
+  { id: 1, code: "EFAC", color: "pink",   hex: "#ff4488", company: "Eddy Factory",            repo: "eddyfactory",           url: "eddyfactory.com" },
+  { id: 2, code: "GOOD", color: "orange", hex: "#ff8800", company: "Big GOOD Productions",    repo: "biggoodproductions",    url: "biggoodproductions.com" },
+  { id: 3, code: "ROBO", color: "yellow", hex: "#ffcc00", company: "Roboduck",                repo: "roboduck",              url: "roboduck.com" },
+  { id: 4, code: "DASS", color: "green",  hex: "#00cc66", company: "Dream Animated Studios",  repo: "dreamanimatedstudios",  url: "dreamanimatedstudios.com" },
+  { id: 5, code: "CDPT", color: "indigo", hex: "#00cccc", company: "The Connection Dept",     repo: "connectiondept",        url: "connectiondept.com" },
+  { id: 6, code: "LOVE", color: "blue",   hex: "#2255ff", company: "Love House Publishing",   repo: "lovehousepublishing",   url: "lovehousepublishing.com" },
+  { id: 7, code: "DVIS", color: "purple", hex: "#8833cc", company: "Digital Vision Capital",   repo: "digitalvisioncapital",  url: "digitalvisioncapital.com" },
+  { id: 8, code: "FACT", color: "red",    hex: "#ff3355", company: "Eddy Fact",               repo: "eddyfact",              url: "eddyfact.com" },
+];
+
 /*
  * ═══════════════════════════════════════════════════════════════
  * EDDY FACTORY // FRONTEND LOGGER
