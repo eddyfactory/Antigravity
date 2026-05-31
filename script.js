@@ -235,8 +235,9 @@ const HOUR_TO_TRACK = {
   17: 6, 18: 0, 19: 7, 20: 0, 21: 8, 22: 0, 23: 9
 };
 
+const jukebox_on = true; // Set to false to lock playback to chaplin_funk (track index 0)
 const currentHour = new Date().getUTCHours();
-const trackIndex = HOUR_TO_TRACK[currentHour];
+const trackIndex = jukebox_on ? HOUR_TO_TRACK[currentHour] : 0;
 let currentJukeboxTrack = JUKEBOX_TRACKS[trackIndex];
 
 const ampm = currentHour >= 12 ? 'PM' : 'AM';
