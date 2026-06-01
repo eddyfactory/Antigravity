@@ -10,10 +10,42 @@ const sites = [
   { id: 8, code: "FACT", color: "red", hex: "#ff3355", company: "eddy fact", repo: "eddyfact", url: "https://eddyfact.com" },
 ];
 
-/
-  * ═══════════════════════════════════════════════════════════════
+// ─── DOM HYDRATION FROM SITES ARRAY ───
+function hydrateSites() {
+  const siteByCode = Object.fromEntries(sites.map(s => [s.code, s]));
+
+  document.querySelectorAll('[data-code]').forEach(el => {
+    const site = siteByCode[el.dataset.code];
+    if (!site) return;
+
+    // Spiral SVG entity link
+    if (el.classList.contains('entity-link')) {
+      el.setAttribute('href', `#entity-${site.code.toLowerCase()}`);
+      el.querySelectorAll('circle').forEach(c => c.setAttribute('fill', site.hex));
+      const textEl = el.querySelector('text');
+      if (textEl) textEl.textContent = site.company;
+    }
+
+    // Entity card
+    if (el.classList.contains('entity-card')) {
+      const dot = el.querySelector('.entity-dot');
+      if (dot) dot.style.background = site.hex;
+      const anchor = el.querySelector('.entity-name a');
+      if (anchor) {
+        const url = site.url.startsWith('http') ? site.url : `https://${site.url}`;
+        anchor.setAttribute('href', url);
+        anchor.textContent = site.company;
+      }
+    }
+  });
+}
+
+hydrateSites();
+
+/*
+ * ═══════════════════════════════════════════════════════════════
  * EDDY FACTORY // FRONTEND LOGGER
-  * ═══════════════════════════════════════════════════════════════
+ * ═══════════════════════════════════════════════════════════════
  */
 const Logger = {
   base: "font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 4px; border-radius: 2px;",
